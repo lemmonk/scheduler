@@ -13,7 +13,7 @@ const interviewerElm = interviewers.map(each =>
     name={each.name} 
     avatar={each.avatar} 
     selected={each.id === interviewer}
-    setInterviewer={setInterviewer}  
+    setInterviewer={(event) => setInterviewer(each.id)}  
   />
 );
 
