@@ -5,10 +5,16 @@ import classnames from "classnames";
 
 export default function DayListItem(props) {
 
-  // const buttonClass = classnames("button", {
-  //   "button--confirm": props.confirm,
-  //   "button--danger": props.danger
-  // });
+  function formatSpots(spots){
+    let result = 'no spots remaining';
+    if(spots === 1) {
+      result = '1 spot remaining';
+    } else if (spots > 1) {
+      result = '2 spots remaining';
+    }
+
+    return result;
+  }
 
   const dayClass = classnames("day-list__item",{
     "day-list__item--selected": props.selected,
@@ -20,7 +26,7 @@ export default function DayListItem(props) {
 
     <li className={dayClass} onClick={() => props.setDay(props.name)}>
       <h2 className="text--regular">{props.name}</h2>
-      <h3 className="text--light">{props.spots}</h3>
+      <h3 className="text--light">{formatSpots(props.spots)}</h3>
     </li>
   );
 }
