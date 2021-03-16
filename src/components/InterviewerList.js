@@ -9,10 +9,10 @@ export default function InterviewerList( {interviewers, interviewer, setIntervie
   
 const interviewerElm = interviewers.map(each => 
   <InterviewerListItem 
-    key={each.id}
+    key={interviewer}
     name={each.name} 
     avatar={each.avatar} 
-    selected={each.name === interviewer}
+    selected={each.id === interviewer}
     setInterviewer={setInterviewer}  
   />
 );
