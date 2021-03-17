@@ -4,16 +4,16 @@ import "components/InterviewerList.scss";
 
 
 
-export default function InterviewerList( {interviewers, interviewer, setInterviewer}) {
-                      
-  
-const interviewerElm = interviewers.map(each => 
+export default function InterviewerList(props) {
+   
+  console.log('props',props)
+  const interviewerElm = props.interviewers.map(each => 
   <InterviewerListItem 
-    key={interviewer}
+    key={each.id}
     name={each.name} 
     avatar={each.avatar} 
-    selected={each.id === interviewer}
-    setInterviewer={(event) => setInterviewer()}  
+    selected={each.id === props.value}
+    setInterviewer={(event) => props.onChange(each.id)}  
   />
 );
 
