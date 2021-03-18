@@ -23,11 +23,11 @@ const appointments = [
     }
   },
   {
-    id: 1,
+    id: 3,
     time: "12pm",
   },
   {
-    id: 2,
+    id: 4,
     time: "1pm",
     interview: {
       student: "Lydia Miller-Jones",
@@ -42,46 +42,45 @@ const appointments = [
 
 export default function Application(props) {
 
-  // const days = [
-  //   {
-  //     id: 1,
-  //     name: "Monday",
-  //     spots: 2,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Tuesday",
-  //     spots: 5,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Wednesday",
-  //     spots: 0,
-  //   },
-  // ];
  
-  
-  const [days, setDays] = useState([]);
+  const setDay = day => setState({ ...state, day });
 
+
+  const [state, setState] = useState({
+    day: "Friday",
+    days: [],
+    setDay: setDay,
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    // appointments: {}
+  });
+  
+  
+  const setDays = (days) => {
+ 
+    setState(prev => ({ ...prev, days }));
+}
+  
   useEffect(() => {
 
     axios.get('/api/days')
     .then(res => {
       console.log('res:',res.data);
-      setDays([...res.data]);
+      setDays(res.data)
+      
     }).catch(err =>{
       console.log(err);
     })
 
 
-  },[]);
+  },[state.day]);
 
- const daylist = <DayList days={days} day={days} setDay={setDays} />;
+  const daylist = <DayList days={state.days} day={state.day} setDay={setDay} />;
 
- const map = appointments.map(appointment => 
+  const map = appointments.map(appointment => 
   <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview} />
   
 );
+
 
   map.push(<Appointment key="last" time="5pm" />);
 
