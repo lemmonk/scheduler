@@ -5,6 +5,8 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import axios from 'axios';
 import getAppointmentsForDay from 'helpers/selectors'
+import getInterview from 'helpers/interviewSelector'
+
 export default function Application(props) {
 
   const setDay = day => setState({ ...state, day });
@@ -26,44 +28,34 @@ export default function Application(props) {
       axios.get('http://localhost:8001/api/appointments'),
       axios.get('http://localhost:8001/api/interviewers')
     ]).then((all) => {
-      
-      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2] }));
+    
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
      
     })
 
   },[]);
- 
-  const daylist = <DayList days={state.days} day={state.day} setDay={setDay} />;
 
 
-  // function getAppointmentsForDay(state, day) {
-   
-  //   let result = [];
   
-  //   for (const d of state.days){
-  //     if(d.name === day){
-  //       d.appointments.forEach(app => {
-  //         result.push(state.appointments[app]);
-  //       });
-  //     }
-  //   }
-  //   return result;
-  // }
-
-
-let apps = [];
-apps.push(<Appointment key="last" time="5pm" />);
-if(state.days.length > 0) {
- 
+  const daylist = <DayList days={state.days} day={state.day} setDay={setDay} />;
   const dailyAppointments = getAppointmentsForDay(state,state.day);
 
-   apps = dailyAppointments.map(appointment => 
-    <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview} />
-  );
+  const apps = dailyAppointments.map(appointment => {
+  const interview  = getInterview(state, appointment.interview);
+  console.log(interview && interview.interviewer)
+ 
+  return (
+  <Appointment 
+  key={appointment.id} 
+  id={appointment.id} 
+  time={appointment.time} 
+  interview={interview && interview}/>
+  )
+})
+
   apps.push(<Appointment key="last" time="5pm" />);
-}
 
-
+ 
   return (
     <main className="layout">
       <section className="sidebar">

@@ -1,8 +1,15 @@
 import React from "react";
+import InterviewerListItem from "components/InterviewerListItem.js";
 
 export default function Show(props) {
 
- 
+const interviewer = <InterviewerListItem 
+    key={props.interviewers.key}
+    id={props.interviewers.id}
+    name={props.interviewers.name}
+    avatar={props.interviewers.avatar}
+    />
+
 
   return (
 
@@ -11,7 +18,7 @@ export default function Show(props) {
     <h2 className="text--regular">{props.student}</h2>
     <section className="interviewer">
       <h4 className="text--light">Interviewer</h4>
-      <h3 className="text--regular">Sylvia Palmer</h3>
+      <h3 className="text--regular">{interviewer}</h3>
     </section>
   </section>
   <section className="appointment__card-right">

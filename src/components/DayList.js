@@ -5,9 +5,6 @@ export default function DayList(props) {
 
 const days = props.days;
 
-console.log('days other', days);
-
-
 const items = days.map(d => 
 <DayListItem 
   key={d.id}

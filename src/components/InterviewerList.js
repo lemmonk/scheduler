@@ -10,6 +10,7 @@ export default function InterviewerList(props) {
   const interviewerElm = props.interviewers.map(each => 
   <InterviewerListItem 
     key={each.id}
+    id={each.id}
     name={each.name} 
     avatar={each.avatar} 
     selected={each.id === props.value}
