@@ -4,8 +4,9 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import axios from 'axios';
-import getAppointmentsForDay from 'helpers/selectors'
-import getInterview from 'helpers/interviewSelector'
+import getAppointmentsForDay from 'helpers/selectors';
+import getInterview from 'helpers/interviewSelector';
+import useVisualMode from "hooks/useVisualMode";
 
 export default function Application(props) {
 
@@ -35,15 +36,16 @@ export default function Application(props) {
 
   },[]);
 
-
+  
   
   const daylist = <DayList days={state.days} day={state.day} setDay={setDay} />;
   const dailyAppointments = getAppointmentsForDay(state,state.day);
 
   const apps = dailyAppointments.map(appointment => {
   const interview  = getInterview(state, appointment.interview);
-  console.log(interview && interview.interviewer)
+  
  
+
   return (
   <Appointment 
   key={appointment.id} 

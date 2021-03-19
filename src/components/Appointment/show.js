@@ -4,10 +4,10 @@ import InterviewerListItem from "components/InterviewerListItem.js";
 export default function Show(props) {
 
 const interviewer = <InterviewerListItem 
-    key={props.interviewers.key}
-    id={props.interviewers.id}
-    name={props.interviewers.name}
-    avatar={props.interviewers.avatar}
+    key={props.interviewer.key}
+    id={props.interviewer.id}
+    name={props.interviewer.name}
+    avatar={props.interviewer.avatar}
     />
 
 
