@@ -11,7 +11,7 @@ export default function useVisualMode(initial) {
   };
 
   const back = function () {
-    console.log('registered');
+    
     setMode(history.length > 1 ? history[history.length - 2] : initial);
     setHistory(history.length > 1 ? (prev) => [...prev].slice(0, -1) : initial);
   };

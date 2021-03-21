@@ -5,35 +5,24 @@ import InterviewerList from "components/InterviewerList.js";
 import { useState } from 'react';
 
 export default function Form(props) {
-console.log('form props',props);
+
 const [name, setName] = useState(props.name || "");
 const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
 const update = (value) => {
-  
   setName( () => {
-    const newState = value;
-    return newState
+    return value
   })
 };
 
-const set = val => {
+
+const set = value => {
   setInterviewer( () => {
-    const newState = val;
-    return newState
+    return value;
   })
 
 }
 
-const reset = () => {
-console.log('cancel')
-update('');
-set(null);
-};
-
-const onCancel = () => {
-  reset();
-  }
 
 
   return (
@@ -51,13 +40,16 @@ const onCancel = () => {
       />
     </form>
 
-    <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={set} />
+    <InterviewerList 
+    interviewers={props.interviewers} 
+    value={interviewer} 
+    onChange={set} />
 
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button onClick={props.onCancel} danger>Cancel</Button>
-      <Button onClick={props.onSave} confirm>Save</Button>
+      <Button onClick={() => props.onSave(name, interviewer)} confirm>Save</Button>
     </section>
   </section>
 </main>
