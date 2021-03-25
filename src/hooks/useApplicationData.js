@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
+
+  //set initial state
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -11,9 +13,8 @@ export default function useApplicationData() {
 
   const setDay = (day) => setState({ ...state, day });
 
-  //book interview
-  function bookInterview(id, interview) {
-   
+  //books a new interview
+  const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -24,7 +25,7 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-    //update spots
+    //update spots available upon save
     const spots = updateSpots(state.day, state.days, appointments);
     return axios.put(`/api/appointments/${id}`, appointment).then((res) => {
       setState({
@@ -35,8 +36,7 @@ export default function useApplicationData() {
     });
   }
 
-
-  //cancel apps
+  //cancels an existing interview
   const cancelInterview = function (id) {
     const appointment = {
       ...state.appointments[id],
@@ -48,8 +48,7 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
-
-    //update spots
+    //update spots available upon cancel
     const spots = updateSpots(state.day, state.days, appointments);
 
     return axios.delete(`/api/appointments/${id}`).then((res) => {
@@ -61,9 +60,9 @@ export default function useApplicationData() {
     });
   };
 
-  
-  function updateSpots(dayName, days, appointments) {
-   
+  //updates the spots available
+  const updateSpots = (dayName, days, appointments) => {
+
     const day = days.find((item) => item.name === dayName);
     const interviewSpots = spotsAvailable(day, appointments);
     const dayArray = days.map((item) => {
@@ -76,8 +75,8 @@ export default function useApplicationData() {
     return dayArray;
   }
 
-
-  function spotsAvailable(dayObj, appointments) {
+  //calculate spots available
+  const spotsAvailable = (dayObj, appointments) => {
     let count = 0;
     for (const id of dayObj.appointments) {
       const appointment = appointments[id];
@@ -88,8 +87,7 @@ export default function useApplicationData() {
     return count;
   }
 
-  //fetch data
-
+  //fetch db data from api
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),

@@ -17,9 +17,6 @@ import { getAllByTestId } from "@testing-library/react";
 import { prettyDOM } from "@testing-library/react";
 
 
-
-
-
 describe("Application", () => {
 
 
@@ -156,10 +153,6 @@ describe("Application", () => {
     //  expect(getByText(appointment, "Error")).toBeInTheDocument();
     debug();
   });
-
-
-  
-
 
 
   it("shows the delete error when failing to delete an existing appointment", async () => {

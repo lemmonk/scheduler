@@ -5,9 +5,9 @@ import Appointment from "components/Appointment";
 import useApplicationData from "../hooks/useApplicationData";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from 'helpers/selectors';
 
-
 export default function Application(props) {
 
+  //fetches current state from custom hook
   const {
     state,
     setDay,
@@ -15,14 +15,14 @@ export default function Application(props) {
     cancelInterview,
   } = useApplicationData();
 
-
   const daylist = <DayList days={state.days} day={state.day} setDay={setDay} />;
+
+  //selector helper functions for parsing incoming data objects to iterable arrays
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
   const apps = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
-
 
     return (
       <Appointment
@@ -38,7 +38,6 @@ export default function Application(props) {
   })
 
   apps.push(<Appointment key="last" time="5pm" />);
-
 
   return (
     <main className="layout">

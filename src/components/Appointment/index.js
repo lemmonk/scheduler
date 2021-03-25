@@ -11,7 +11,7 @@ import "components/Appointment/styles.scss";
 
 export default function Appointment(props) {
 
- 
+  //transition vars
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -24,18 +24,17 @@ export default function Appointment(props) {
 
   //set initial mode
   const { mode, transition, back } = useVisualMode(
-    
+
     props.interview ? SHOW : EMPTY
-    
   );
 
-
-  function save(name, interviewer) {
+  //saves a new interview to the scheduler or handles error
+  const save = (name, interviewer) => {
     const interview = {
       student: name,
       interviewer,
     };
-  
+
     transition(SAVING);
     props
       .bookInterview(props.id, interview)
@@ -43,6 +42,7 @@ export default function Appointment(props) {
       .catch((err) => transition(ERROR_SAVE, true));
   }
 
+  //deletes an existing interview from the schedule
   const deleting = () => {
     transition(DELETING, true);
 
