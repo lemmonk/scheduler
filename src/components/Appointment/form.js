@@ -26,15 +26,12 @@ export default function Form(props) {
 
   //validates the user input before allowing an new interview to be booked
   const validate = () => {
-    if (name === "") {
+
+    if (name === "") { 
       setError("Student name cannot be blank");
       return;
     }
-
-    if (interviewer === null) {
-      setError("You must select an interviewer");
-      return;
-    }
+                //<----- STRETCH add interviewer selected validation and test...
 
     setError("");
     props.onSave(name, interviewer);
