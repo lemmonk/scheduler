@@ -7,6 +7,7 @@ import Application from "components/Application";
 /* with the rest of the imports */
 import { fireEvent } from "@testing-library/react";
 import { getByText } from "@testing-library/react";
+import { queryByText } from "@testing-library/react";
 import { getByAltText } from "@testing-library/react";
 import { getByPlaceholderText } from "@testing-library/react";
 import { waitForElement } from "@testing-library/react";
@@ -33,16 +34,19 @@ describe("Application", () => {
   
     fireEvent.click(getByText(appointment, "Save"));
    
-    // console.log(prettyDOM(appointment));
+    console.log(prettyDOM(appointment));
+
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+  
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+  
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 });
 
 
-  // /* 1. Create the mock onSave function */
-  // const onSave = jest.fn();
-  // /* 2. Render the Form with interviewers and the onSave mock function passed as an onSave prop, the name prop should be blank or undefined */
-  // const { getByText } = render(
-  //   <Form interviewers={interviewers} onSave={onSave} />
-  // );
-  // /* 3. Click the save button */
-  // fireEvent.click(getByText("Save"));
+ 
