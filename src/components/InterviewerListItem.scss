@@ -4,6 +4,12 @@
 
 .interviewers {
 
+ .imjo{
+  display:flex;
+  align-items:flex-end; 
+ 
+ }
+
   &__item {
     @include button-inactive--opacity;
 

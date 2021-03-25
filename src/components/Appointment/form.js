@@ -47,7 +47,7 @@ function cancel() {
   <section className="appointment__card-left">
     <form autoComplete="off">
       <input
-       
+        data-testid="student-name-input"
         className="appointment__create-input text--semi-bold"
         name="name"
         type="text"
@@ -55,7 +55,8 @@ function cancel() {
         value={name}
         onChange={(event) => update(event.target.value)}
         onSubmit={event => event.preventDefault()}
-        data-testid="student-name-input"
+       
+      
       />
     </form>
     <section className="appointment__validation">{error}</section>

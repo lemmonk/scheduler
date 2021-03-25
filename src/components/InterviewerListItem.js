@@ -14,12 +14,14 @@ export default function DayListItem(props) {
   return (
 
   <li className={interviewerClass} onClick={props.setInterviewer}>
+    <div className='imjo'>
     <img
       className="interviewers__item-image"
       src={props.avatar}
       alt={props.name}
-    
     />
+   
+   </div>
       {props.selected && props.name}
   </li>
 );

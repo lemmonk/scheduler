@@ -3,13 +3,16 @@ import InterviewerListItem from "components/InterviewerListItem.js";
 
 export default function Show(props) {
 
-const interviewer = <InterviewerListItem 
-    key={props.interviewer.key}
+  
+
+const inter = <InterviewerListItem 
+    key={props.interviewer.id}
     id={props.interviewer.id}
     name={props.interviewer.name}
     avatar={props.interviewer.avatar}
     />
 
+    console.log("SHOW", inter.props.name);
 
   return (
 
@@ -18,7 +21,8 @@ const interviewer = <InterviewerListItem
     <h2 className="text--regular">{props.student}</h2>
     <section className="interviewer">
       <h4 className="text--light">Interviewer</h4>
-      <h3 className="text--regular">{interviewer}</h3>
+      
+      <h3 className="text--regular">{inter}</h3>
     </section>
   </section>
   <section className="appointment__card-right">
