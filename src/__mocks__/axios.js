@@ -58,6 +58,20 @@ const fixtures = {
 
 export default {
   defaults: { baseURL: "" },
+
+ delete: jest.fn(url => {
+
+  if (url === "/api/appointments/2") {
+    /* Resolve interviewers data */
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content",
+      data: fixtures.appointments
+    });
+  }
+
+ }),
+
   put: jest.fn(url => {
     if (url === "/api/appointments") {
       /* Resolve interviewers data */
